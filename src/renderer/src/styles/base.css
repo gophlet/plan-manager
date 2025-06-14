@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+:root,
+#root,
+body {
+  height: 100%;
+}
+
+body {
+  user-select: none;
+  text-rendering: auto;
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

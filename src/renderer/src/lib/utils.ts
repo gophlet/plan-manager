@@ -1,4 +1,5 @@
 import { clsx, type ClassValue } from 'clsx'
+import { isFunction } from '../../../shared/utils'
 import { twMerge } from 'tailwind-merge'
 
 export const cn = (...inputs: ClassValue[]): string => {
@@ -10,9 +11,17 @@ export const genId = (prefix = 'id'): string => {
 }
 
 export const copyToClipboard = (text: string): void => {
-  if (window.clipboard && typeof window.clipboard.writeText === 'function') {
+  if (window.clipboard && isFunction(window.clipboard.writeText)) {
     window.clipboard.writeText(text)
   } else if (navigator.clipboard) {
     navigator.clipboard.writeText(text)
   }
+}
+
+/**
+ * Returns true with the given percentage chance.
+ * @param percent [0, 100)
+ */
+export function randomByPercent(percent: number): boolean {
+  return Math.random() * 100 < percent
 }

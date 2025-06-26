@@ -37,10 +37,10 @@ const LoginPage = (): React.JSX.Element => {
     try {
       await api.login({ account, password })
       notify({ title: '登录成功', description: '欢迎回来！', variant: 'success' })
-    } catch (err) {
+    } catch (error) {
       notify({
         title: '登录失败',
-        description: (err as Error)?.message || '请检查账号密码',
+        description: error instanceof Error ? error.message : '请重试',
         variant: 'destructive'
       })
     } finally {

@@ -1,9 +1,12 @@
-import { app, shell, BrowserWindow } from 'electron'
+import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import { installExtension, REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer'
 import { Conf } from 'electron-conf/main'
 import icon from '../../resources/icon.png?asset'
+import { handleHttpRequest } from './http-request'
+import { HttpRequestConfig, HttpResponse } from '../shared/http-types'
+import { HTTP_CHANNEL } from '../shared/ipc-channels'
 
 function createWindow(): void {
   // Create the browser window.
@@ -56,6 +59,12 @@ app.whenReady().then(() => {
   app.on('browser-window-created', (_, window) => {
     optimizer.watchWindowShortcuts(window)
   })
+
+  // IPC Listener
+  ipcMain.handle(
+    HTTP_CHANNEL.REQUEST,
+    <T>(_event, config: HttpRequestConfig): Promise<HttpResponse<T>> => handleHttpRequest(config)
+  )
 
   createWindow()
 

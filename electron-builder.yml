@@ -13,6 +13,9 @@ asarUnpack:
   - resources/**
 win:
   executableName: plan-manager
+  target:
+    - portable
+    - nsis
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}

@@ -1,7 +1,8 @@
 import client from '../client'
-import { WalletEndpoints } from '../endpoints'
-
-const isMock = import.meta.env.MODE === 'development'
+import { WalletEndpoint } from '../endpoints'
+import { isMockEnabled, MOCK_DELAY, MockEndpoint } from '../mocks'
+import { randomByPercent } from '@renderer/lib/utils'
+import { HttpMethod } from '@renderer/constants'
 
 type WalletInfo = {
   walletId: string
@@ -15,11 +16,12 @@ export interface GetWalletsResponse {
   wallets: WalletInfoList
 }
 
-export const getWallets = async (): Promise<GetWalletsResponse> => {
-  if (isMock) {
-    if (Math.random() < 0.05) {
-      const res = await client.get('/status/401', {
-        baseURL: 'https://httpbin.org'
+export const getWallets = async (): Promise<GetWalletsResponse | null> => {
+  if (isMockEnabled) {
+    if (randomByPercent(5)) {
+      const res = await client.request<GetWalletsResponse>({
+        method: HttpMethod.GET,
+        url: MockEndpoint.UNAUTHORIZED
       })
       return res.data
     }
@@ -44,9 +46,13 @@ export const getWallets = async (): Promise<GetWalletsResponse> => {
             }
           ]
         })
-      }, 400)
+      }, MOCK_DELAY)
     })
   }
-  const res = await client.post<GetWalletsResponse>(WalletEndpoints.getWallets)
+
+  const res = await client.request<GetWalletsResponse>({
+    method: HttpMethod.GET,
+    url: WalletEndpoint.GET_WALLETS
+  })
   return res.data
 }

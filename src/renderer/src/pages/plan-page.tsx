@@ -60,11 +60,18 @@ const PlanPage: React.FC<{
       .getPlans({ walletId })
       .then((res) => {
         setSelected([])
-        setPlans(res.plans)
+        setPlans(res?.plans ?? [])
       })
-      .catch(() => setPlans([]))
+      .catch((error) => {
+        setPlans([])
+        notify({
+          title: '加载失败',
+          description: error instanceof Error ? error.message : '请重试',
+          variant: 'destructive'
+        })
+      })
       .finally(() => setLoading(false))
-  }, [walletId])
+  }, [notify, walletId])
 
   React.useEffect(() => {
     fetchPlans()
@@ -79,7 +86,7 @@ const PlanPage: React.FC<{
       setSwitching((prev) => [...prev, planId])
       try {
         const res = await api.switchPlans({ planIds: [planId] })
-        if (res.success) {
+        if (res?.success) {
           setPlans((prev) =>
             prev.map((p) => (p.planId === planId ? { ...p, isActive: !p.isActive } : p))
           )
@@ -87,8 +94,12 @@ const PlanPage: React.FC<{
         } else {
           notify({ title: '切换失败', description: '请重试', variant: 'destructive' })
         }
-      } catch {
-        notify({ title: '切换失败', description: '请重试', variant: 'destructive' })
+      } catch (error) {
+        notify({
+          title: '切换失败',
+          description: error instanceof Error ? error.message : '请重试',
+          variant: 'destructive'
+        })
       } finally {
         setSwitching((prev) => prev.filter((id) => id !== planId))
       }
@@ -100,7 +111,7 @@ const PlanPage: React.FC<{
     setSwitching((prev) => [...prev, ...selected])
     try {
       const res = await api.switchPlans({ planIds: selected })
-      if (res.success) {
+      if (res?.success) {
         setPlans((prev) =>
           prev.map((p) => (selected.includes(p.planId) ? { ...p, isActive: !p.isActive } : p))
         )
@@ -108,8 +119,12 @@ const PlanPage: React.FC<{
       } else {
         notify({ title: '批量切换失败', description: '请重试', variant: 'destructive' })
       }
-    } catch {
-      notify({ title: '批量切换失败', description: '请重试', variant: 'destructive' })
+    } catch (error) {
+      notify({
+        title: '批量切换失败',
+        description: error instanceof Error ? error.message : '请重试',
+        variant: 'destructive'
+      })
     } finally {
       setSwitching((prev) => prev.filter((id) => !selected.includes(id)))
     }
@@ -119,14 +134,18 @@ const PlanPage: React.FC<{
     setDeleting((prev) => [...prev, planId])
     try {
       const res = await api.deletePlans({ planIds: [planId] })
-      if (res.success) {
+      if (res?.success) {
         setPlans((prev) => prev.filter((p) => p.planId !== planId))
         notify({ title: '删除成功', description: '计划已删除', variant: 'success' })
       } else {
         notify({ title: '删除失败', description: '请重试', variant: 'destructive' })
       }
-    } catch {
-      notify({ title: '删除失败', description: '请重试', variant: 'destructive' })
+    } catch (error) {
+      notify({
+        title: '删除失败',
+        description: error instanceof Error ? error.message : '请重试',
+        variant: 'destructive'
+      })
     } finally {
       setDeleting((prev) => prev.filter((id) => id !== planId))
     }
@@ -136,15 +155,19 @@ const PlanPage: React.FC<{
     setDeleting((prev) => [...prev, ...selected])
     try {
       const res = await api.deletePlans({ planIds: selected })
-      if (res.success) {
+      if (res?.success) {
         setPlans((prev) => prev.filter((p) => !selected.includes(p.planId)))
         setSelected((prev) => prev.filter((id) => !selected.includes(id)))
         notify({ title: '删除成功', description: '计划已全部删除', variant: 'success' })
       } else {
         notify({ title: '删除失败', description: '请重试', variant: 'destructive' })
       }
-    } catch {
-      notify({ title: '删除失败', description: '请重试', variant: 'destructive' })
+    } catch (error) {
+      notify({
+        title: '删除失败',
+        description: error instanceof Error ? error.message : '请重试',
+        variant: 'destructive'
+      })
     } finally {
       setDeleting((prev) => prev.filter((id) => !selected.includes(id)))
       setConfirmBatchDelete(false)
@@ -271,8 +294,12 @@ const PlanPage: React.FC<{
       setShowCreate(false)
       fetchPlans()
       notify({ title: '创建成功', description: '计划已创建', variant: 'success' })
-    } catch {
-      notify({ title: '创建失败', description: '请重试', variant: 'destructive' })
+    } catch (error) {
+      notify({
+        title: '创建失败',
+        description: error instanceof Error ? error.message : '请重试',
+        variant: 'destructive'
+      })
     }
   }
 
@@ -297,8 +324,12 @@ const PlanPage: React.FC<{
       setEditPlan(null)
       fetchPlans()
       notify({ title: '编辑成功', description: '计划已更新', variant: 'success' })
-    } catch {
-      notify({ title: '编辑失败', description: '请重试', variant: 'destructive' })
+    } catch (error) {
+      notify({
+        title: '编辑失败',
+        description: error instanceof Error ? error.message : '请重试',
+        variant: 'destructive'
+      })
     }
   }
 

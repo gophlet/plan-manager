@@ -1,6 +1,8 @@
 import { useAuthStore } from '@renderer/store/authStore'
 import client from '../client'
-import { AuthEndpoints } from '../endpoints'
+import { AuthEndpoint } from '../endpoints'
+import { isMockEnabled } from '../mocks'
+import { HttpMethod } from '@renderer/constants'
 
 export interface LoginRequest {
   account: string
@@ -11,10 +13,8 @@ export interface LoginResponse {
   token: string
 }
 
-const isMock = import.meta.env.MODE === 'development'
-
-export const login = async (payload: LoginRequest): Promise<LoginResponse> => {
-  if (isMock) {
+export const login = async (payload: LoginRequest): Promise<LoginResponse | null> => {
+  if (isMockEnabled) {
     const token = 'mock-token-1234567890'
     return new Promise((resolve) => {
       setTimeout(async () => {
@@ -24,7 +24,12 @@ export const login = async (payload: LoginRequest): Promise<LoginResponse> => {
     })
   }
 
-  const res = await client.post<LoginResponse>(AuthEndpoints.login, payload)
-  await useAuthStore.getState().setToken(res.data.token)
+  const res = await client.request<LoginResponse>({
+    method: HttpMethod.POST,
+    url: AuthEndpoint.LOGIN,
+    data: payload
+  })
+
+  await useAuthStore.getState().setToken(res.data?.token)
   return res.data
 }

@@ -1,7 +1,7 @@
 import client from '../client'
-import { PlanEndpoints } from '../endpoints'
-
-const isMock = import.meta.env.MODE === 'development'
+import { PlanEndpoint } from '../endpoints'
+import { isMockEnabled, MOCK_DELAY } from '../mocks'
+import { HttpMethod } from '@renderer/constants'
 
 type PlanInfo = {
   planId: string
@@ -59,8 +59,8 @@ export interface SwitchPlansResponse {
   success: boolean
 }
 
-export const getPlans = async (payload: GetPlansRequest): Promise<GetPlansResponse> => {
-  if (isMock) {
+export const getPlans = async (payload: GetPlansRequest): Promise<GetPlansResponse | null> => {
+  if (isMockEnabled) {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve({
@@ -78,45 +78,67 @@ export const getPlans = async (payload: GetPlansRequest): Promise<GetPlansRespon
             down: 1
           }))
         })
-      }, 500)
+      }, MOCK_DELAY)
     })
   }
-  const res = await client.post<GetPlansResponse>(PlanEndpoints.getPlans, payload)
+  const res = await client.request<GetPlansResponse>({
+    method: HttpMethod.POST,
+    url: PlanEndpoint.GET_PLANS,
+    data: payload
+  })
   return res.data
 }
 
-export const deletePlans = async (payload: DeletePlansRequest): Promise<DeletePlansResponse> => {
-  if (isMock) {
+export const deletePlans = async (
+  payload: DeletePlansRequest
+): Promise<DeletePlansResponse | null> => {
+  if (isMockEnabled) {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve({ success: true })
-      }, 300)
+      }, MOCK_DELAY)
     })
   }
-  const res = await client.post<DeletePlansResponse>(PlanEndpoints.deletePlans, payload)
+  const res = await client.request<DeletePlansResponse>({
+    method: HttpMethod.POST,
+    url: PlanEndpoint.DELETE_PLANS,
+    data: payload
+  })
   return res.data
 }
 
-export const submitPlan = async (payload: SubmitPlanRequest): Promise<SubmitPlanResponse> => {
-  if (isMock) {
+export const submitPlan = async (
+  payload: SubmitPlanRequest
+): Promise<SubmitPlanResponse | null> => {
+  if (isMockEnabled) {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve({ planId: 'mock-plan-' + Math.random().toString(36).slice(2, 8) })
-      }, 400)
+      }, MOCK_DELAY)
     })
   }
-  const response = await client.post<SubmitPlanResponse>(PlanEndpoints.submitPlan, payload)
+  const response = await client.request<SubmitPlanResponse>({
+    method: HttpMethod.POST,
+    url: PlanEndpoint.SUBMIT_PLAN,
+    data: payload
+  })
   return response.data
 }
 
-export const switchPlans = async (payload: SwitchPlansRequest): Promise<SwitchPlansResponse> => {
-  if (isMock) {
+export const switchPlans = async (
+  payload: SwitchPlansRequest
+): Promise<SwitchPlansResponse | null> => {
+  if (isMockEnabled) {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve({ success: true })
-      }, 200)
+      }, MOCK_DELAY)
     })
   }
-  const response = await client.post<SwitchPlansResponse>(PlanEndpoints.switchPlans, payload)
+  const response = await client.request<SwitchPlansResponse>({
+    method: HttpMethod.POST,
+    url: PlanEndpoint.SWITCH_PLANS,
+    data: payload
+  })
   return response.data
 }

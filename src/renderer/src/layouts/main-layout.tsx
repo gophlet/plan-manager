@@ -52,7 +52,7 @@ const MainLayout = (): React.JSX.Element => {
     setLoadingWallets(true)
     try {
       const res = await api.getWallets()
-      setWallets(res.wallets)
+      setWallets(res?.wallets ?? [])
     } catch (error) {
       notify({
         title: '获取钱包失败',

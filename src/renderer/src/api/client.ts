@@ -1,44 +1,41 @@
-import axios from 'axios'
 import { useAuthStore } from '@renderer/store/authStore'
 import { getNotify } from '@renderer/components/kit/toast/toast-context'
 import { REQUEST_TIMEOUT } from '@renderer/constants'
+import { HttpRequestConfig, HttpResponse } from 'src/shared/http-types'
+import { isMockEnabled } from './mocks'
 
-const client = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
-  timeout: REQUEST_TIMEOUT,
-  headers: {
-    'Content-Type': 'application/json'
-  }
-})
+const client = {
+  async request<T = unknown>(config: HttpRequestConfig): Promise<HttpResponse<T>> {
+    const token = useAuthStore.getState().token
 
-client.interceptors.request.use((config) => {
-  const token = useAuthStore.getState().token
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`
-  }
-  return config
-})
+    const res = await window.httpClient.request<T>({
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      timeout: REQUEST_TIMEOUT,
+      baseURL: isMockEnabled
+        ? import.meta.env.VITE_MOCK_BASE_URL
+        : import.meta.env.VITE_API_BASE_URL,
+      ...config
+    })
 
-client.interceptors.response.use(
-  (response) => response.data,
-  async (error) => {
-    const status = error.response?.status
-
-    if (status === 401) {
-      await useAuthStore.getState().clearToken()
-      const notify = getNotify()
-      if (notify) {
-        notify({
-          title: '身份失效',
-          description: '请重新登录',
-          variant: 'destructive'
-        })
+    if (res.error) {
+      if (res.status === 401) {
+        await useAuthStore.getState().clearToken()
+        const notify = getNotify()
+        if (notify) {
+          notify({
+            title: '身份失效',
+            description: '请重新登录',
+            variant: 'destructive'
+          })
+        }
       }
-      console.warn('Token expired or invalid, please re-login')
+      throw new Error(res.message || 'Request failed')
     }
-
-    return Promise.reject(error)
+    return res
   }
-)
+}
 
 export default client

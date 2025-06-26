@@ -1,4 +1,5 @@
 import { ElectronAPI } from '@electron-toolkit/preload'
+import { HttpRequestConfig, HttpResponse } from '../shared/http-types'
 
 declare global {
   interface Window {
@@ -6,6 +7,9 @@ declare global {
     clipboard: {
       writeText: (text: string) => void
       readText: () => string
+    }
+    httpClient: {
+      request: <T = unknown>(config: HttpRequestConfig) => Promise<HttpResponse<T>>
     }
   }
 }

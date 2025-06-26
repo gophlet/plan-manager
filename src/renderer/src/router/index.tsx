@@ -8,9 +8,17 @@ import MainLayout from '@renderer/layouts/main-layout'
 import LoginPage from '@renderer/pages/login-page'
 import HomePage from '@renderer/pages/home-page'
 import PlanPageWrapper from '@renderer/pages/plan-page-wrapper'
+import ErrorLayout from '@renderer/layouts/error-layout'
 
 const routes = createRoutesFromElements(
-  <Route element={<Outlet />} errorElement={<ErrorBoundary />}>
+  <Route
+    element={<Outlet />}
+    errorElement={
+      <ErrorLayout>
+        <ErrorBoundary />
+      </ErrorLayout>
+    }
+  >
     <Route element={<Protected />}>
       <Route element={<MainLayout />}>
         <Route index element={<Navigate to={RouteName.DASHBOARD} replace />} />

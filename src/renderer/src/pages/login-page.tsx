@@ -12,6 +12,8 @@ import { Alert } from '../components/kit/alert'
 import { Spinner } from '../components/kit/spinner'
 
 const LoginPage = (): React.JSX.Element => {
+  // throw new Error('Test error boundary')
+
   const { notify } = useToast()
   const [account, setAccount] = React.useState('')
   const [password, setPassword] = React.useState('')

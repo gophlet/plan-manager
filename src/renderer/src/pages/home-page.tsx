@@ -1,6 +1,8 @@
 import * as React from 'react'
 
 const HomePage = (): React.JSX.Element => {
+  // throw new Error('Test error boundary')
+
   return (
     <main className="flex-1 flex flex-col items-center justify-center p-8">
       <div className="bg-white rounded-xl shadow-md border border-gray-200 p-10 max-w-lg w-full flex flex-col items-center gap-6">

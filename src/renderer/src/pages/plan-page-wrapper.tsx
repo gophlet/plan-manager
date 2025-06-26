@@ -3,6 +3,8 @@ import { useOutletContext, useParams } from 'react-router'
 import PlanPage from './plan-page'
 
 const PlanPageWrapper: React.FC = () => {
+  // throw new Error('Test error boundary')
+
   const wallet = useOutletContext<{
     walletId: string
     walletAddress: string

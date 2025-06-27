@@ -15,6 +15,7 @@ export interface PlanFormPopupProps {
 }
 
 export interface PlanFormValues {
+  planId?: string
   planName: string
   followWallets: string
   buyAmount: string

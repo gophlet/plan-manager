@@ -36,6 +36,8 @@ export interface DeletePlansResponse {
 }
 
 export interface SubmitPlanRequest {
+  planId?: string
+  walletId: string
   planName: string
   followWallets: string[]
   buyAmount: number
@@ -82,7 +84,7 @@ export const getPlans = async (payload: GetPlansRequest): Promise<GetPlansRespon
     })
   }
   const res = await client.request<GetPlansResponse>({
-    method: HttpMethod.POST,
+    method: HttpMethod.GET,
     url: PlanEndpoint.GET_PLANS,
     data: payload
   })

@@ -45,13 +45,13 @@ const PlanPage: React.FC<{
   const defaultPlanForm: PlanFormValues = {
     planName: '',
     followWallets: '',
-    buyAmount: '',
-    buyJito: '',
-    sellJito: '',
-    minFA: '',
-    maxFA: '',
-    up: '',
-    down: ''
+    buyAmount: '0.3',
+    buyJito: '0.001',
+    sellJito: '0.001',
+    minFA: '0.9',
+    maxFA: '29.99',
+    up: '0.2',
+    down: '0.2'
   } as const
 
   const fetchPlans = React.useCallback(() => {
@@ -278,6 +278,7 @@ const PlanPage: React.FC<{
   const handleCreatePlan = async (values: PlanFormValues): Promise<void> => {
     try {
       await api.submitPlan({
+        walletId: walletId,
         planName: values.planName,
         followWallets: values.followWallets
           .split('\n')
@@ -307,6 +308,8 @@ const PlanPage: React.FC<{
     if (!editPlan) return
     try {
       await api.submitPlan({
+        planId: editPlan.planId,
+        walletId: walletId,
         planName: values.planName,
         followWallets: values.followWallets
           .split('\n')

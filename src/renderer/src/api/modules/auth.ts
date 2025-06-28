@@ -1,4 +1,4 @@
-import { useAuthStore } from '@renderer/store/authStore'
+import { useAuthStore } from '@renderer/store/auth'
 import client from '../client'
 import { AuthEndpoint } from '../endpoints'
 import { isMockEnabled } from '../mocks'

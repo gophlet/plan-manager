@@ -1,4 +1,4 @@
-import { useAuthStore } from '@renderer/store/authStore'
+import { useAuthStore } from '@renderer/store/auth'
 import { getNotify } from '@renderer/components/kit/toast/toast-context'
 import { REQUEST_TIMEOUT } from '@renderer/constants'
 import { HttpRequestConfig, HttpResponse } from 'src/shared/http-types'

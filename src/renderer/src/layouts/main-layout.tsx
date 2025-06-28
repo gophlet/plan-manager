@@ -13,7 +13,7 @@ import { RouteName } from '@renderer/constants'
 import { Dialog } from '../components/kit/dialog'
 import { cn } from '@renderer/lib/utils'
 import { Alert } from '../components/kit/alert'
-import { useAuthStore } from '@renderer/store/authStore'
+import { useAuthStore } from '@renderer/store/auth'
 
 const MainLayout = (): React.JSX.Element => {
   const { notify } = useToast()

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useNavigate } from 'react-router'
-import { useAuthStore } from '@renderer/store/authStore'
+import { useAuthStore } from '@renderer/store/auth'
 import { RouteName } from '@renderer/constants'
 import { api } from '@renderer/api'
 import Card from '../components/kit/card'

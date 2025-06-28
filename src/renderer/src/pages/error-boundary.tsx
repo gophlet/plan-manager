@@ -4,7 +4,7 @@ import Card from '../components/kit/card'
 import { Button } from '../components/kit/button'
 import { RouteName } from '../constants'
 import { Home, LogIn } from 'lucide-react'
-import { useAuthStore } from '@renderer/store/authStore'
+import { useAuthStore } from '@renderer/store/auth'
 
 const ErrorBoundary = (): React.JSX.Element => {
   const navigate = useNavigate()

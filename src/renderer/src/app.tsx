@@ -2,7 +2,7 @@ import { RouterProvider } from 'react-router'
 import { router } from './router'
 import { ToastProvider } from './components/kit/toast/toast-provider'
 import { useCallback, useEffect } from 'react'
-import { useAuthStore } from './store/authStore'
+import { useAuthStore } from './store/auth'
 
 const App = (): React.JSX.Element => {
   const init = useAuthStore((state) => state.init)

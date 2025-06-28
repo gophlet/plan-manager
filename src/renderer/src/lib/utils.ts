@@ -22,6 +22,6 @@ export const copyToClipboard = (text: string): void => {
  * Returns true with the given percentage chance.
  * @param percent [0, 100)
  */
-export function randomByPercent(percent: number): boolean {
+export const randomByPercent = (percent: number): boolean => {
   return Math.random() * 100 < percent
 }

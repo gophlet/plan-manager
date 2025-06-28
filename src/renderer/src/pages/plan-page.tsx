@@ -10,6 +10,7 @@ import { Dialog } from '@renderer/components/kit/dialog'
 import FixedHeaderTable, { FixedHeaderTableColumn } from '../components/fixed-header-table'
 import { Checkbox } from '@renderer/components/kit/checkbox'
 import PlanFormPopup, { PlanFormValues } from '../components/plan-form-popup'
+import { DEFAULT_ERROR_DESCRIPTION } from '@renderer/constants'
 
 type Plan = {
   planId: string
@@ -62,11 +63,11 @@ const PlanPage: React.FC<{
         setSelected([])
         setPlans(res?.plans ?? [])
       })
-      .catch((error) => {
+      .catch(() => {
         setPlans([])
         notify({
           title: '加载失败',
-          description: error instanceof Error ? error.message : '请重试',
+          description: DEFAULT_ERROR_DESCRIPTION,
           variant: 'destructive'
         })
       })
@@ -92,12 +93,16 @@ const PlanPage: React.FC<{
           )
           notify({ title: '切换成功', description: '计划已切换', variant: 'success' })
         } else {
-          notify({ title: '切换失败', description: '请重试', variant: 'destructive' })
+          notify({
+            title: '切换失败',
+            description: DEFAULT_ERROR_DESCRIPTION,
+            variant: 'destructive'
+          })
         }
-      } catch (error) {
+      } catch {
         notify({
           title: '切换失败',
-          description: error instanceof Error ? error.message : '请重试',
+          description: DEFAULT_ERROR_DESCRIPTION,
           variant: 'destructive'
         })
       } finally {
@@ -117,12 +122,16 @@ const PlanPage: React.FC<{
         )
         notify({ title: '批量切换成功', description: '计划已批量切换', variant: 'success' })
       } else {
-        notify({ title: '批量切换失败', description: '请重试', variant: 'destructive' })
+        notify({
+          title: '批量切换失败',
+          description: DEFAULT_ERROR_DESCRIPTION,
+          variant: 'destructive'
+        })
       }
-    } catch (error) {
+    } catch {
       notify({
         title: '批量切换失败',
-        description: error instanceof Error ? error.message : '请重试',
+        description: DEFAULT_ERROR_DESCRIPTION,
         variant: 'destructive'
       })
     } finally {
@@ -138,12 +147,16 @@ const PlanPage: React.FC<{
         setPlans((prev) => prev.filter((p) => p.planId !== planId))
         notify({ title: '删除成功', description: '计划已删除', variant: 'success' })
       } else {
-        notify({ title: '删除失败', description: '请重试', variant: 'destructive' })
+        notify({
+          title: '删除失败',
+          description: DEFAULT_ERROR_DESCRIPTION,
+          variant: 'destructive'
+        })
       }
-    } catch (error) {
+    } catch {
       notify({
         title: '删除失败',
-        description: error instanceof Error ? error.message : '请重试',
+        description: DEFAULT_ERROR_DESCRIPTION,
         variant: 'destructive'
       })
     } finally {
@@ -160,12 +173,16 @@ const PlanPage: React.FC<{
         setSelected((prev) => prev.filter((id) => !selected.includes(id)))
         notify({ title: '删除成功', description: '计划已全部删除', variant: 'success' })
       } else {
-        notify({ title: '删除失败', description: '请重试', variant: 'destructive' })
+        notify({
+          title: '删除失败',
+          description: DEFAULT_ERROR_DESCRIPTION,
+          variant: 'destructive'
+        })
       }
-    } catch (error) {
+    } catch {
       notify({
         title: '删除失败',
-        description: error instanceof Error ? error.message : '请重试',
+        description: DEFAULT_ERROR_DESCRIPTION,
         variant: 'destructive'
       })
     } finally {
@@ -295,10 +312,10 @@ const PlanPage: React.FC<{
       setShowCreate(false)
       fetchPlans()
       notify({ title: '创建成功', description: '计划已创建', variant: 'success' })
-    } catch (error) {
+    } catch {
       notify({
         title: '创建失败',
-        description: error instanceof Error ? error.message : '请重试',
+        description: DEFAULT_ERROR_DESCRIPTION,
         variant: 'destructive'
       })
     }
@@ -327,10 +344,10 @@ const PlanPage: React.FC<{
       setEditPlan(null)
       fetchPlans()
       notify({ title: '编辑成功', description: '计划已更新', variant: 'success' })
-    } catch (error) {
+    } catch {
       notify({
         title: '编辑失败',
-        description: error instanceof Error ? error.message : '请重试',
+        description: DEFAULT_ERROR_DESCRIPTION,
         variant: 'destructive'
       })
     }

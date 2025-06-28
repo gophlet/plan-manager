@@ -11,7 +11,7 @@ const App = (): React.JSX.Element => {
     try {
       await init()
     } catch (error) {
-      console.error('Failed to initialize authentication:', error)
+      console.error(error)
     }
   }, [init])
 

@@ -1,6 +1,6 @@
 import { useAuthStore } from '@renderer/store/auth'
 import { getNotify } from '@renderer/components/kit/toast/toast-context'
-import { REQUEST_TIMEOUT } from '@renderer/constants'
+import { HttpStatus, REQUEST_TIMEOUT } from '@renderer/constants'
 import { HttpRequestConfig, HttpResponse } from 'src/shared/http-types'
 import { isMockEnabled } from './mocks'
 
@@ -21,7 +21,7 @@ const client = {
     })
 
     if (res.error) {
-      if (res.status === 401) {
+      if (res.status === HttpStatus.UNAUTHORIZED) {
         await useAuthStore.getState().clearToken()
         const notify = getNotify()
         if (notify) {

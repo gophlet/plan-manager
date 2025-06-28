@@ -7,7 +7,7 @@ import { Skeleton } from '../components/kit/skeleton'
 import Sidebar from '../components/sidebar'
 import SidebarHeader from '../components/sidebar-header'
 import { api } from '@renderer/api'
-import { RouteName } from '@renderer/constants'
+import { DEFAULT_ERROR_DESCRIPTION, RouteName } from '@renderer/constants'
 // import { FormPopup } from '../components/kit/form-popup'
 // import { Input } from '../components/kit/input'
 import { Dialog } from '../components/kit/dialog'
@@ -53,13 +53,12 @@ const MainLayout = (): React.JSX.Element => {
     try {
       const res = await api.getWallets()
       setWallets(res?.wallets ?? [])
-    } catch (error) {
+    } catch {
       notify({
         title: '获取钱包失败',
-        description: '无法获取钱包列表，请稍后重试',
+        description: DEFAULT_ERROR_DESCRIPTION,
         variant: 'destructive'
       })
-      console.error('Error fetching wallets:', error)
       setWallets([])
     } finally {
       setLoadingWallets(false)
@@ -85,10 +84,10 @@ const MainLayout = (): React.JSX.Element => {
       setActiveKey(key)
       return
     }
-    if (key === 'settings') {
-      notify({ title: '设置', description: 'TODO: 跳转设置页面', variant: 'info' })
-      setActiveKey(key)
-    }
+    // if (key === 'settings') {
+    //   notify({ title: '设置', description: 'TODO: 跳转设置页面', variant: 'info' })
+    //   setActiveKey(key)
+    // }
     if (key === 'logout') {
       setDialog({
         open: true,

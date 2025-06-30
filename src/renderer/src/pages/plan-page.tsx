@@ -376,7 +376,7 @@ const PlanPage: React.FC<{
                 <RefreshCw size={16} className={cn(loading && 'animate-spin')} />
               </IconButton>
             </div>
-            <div className="text-xs text-gray-500 break-all flex items-center gap-1">
+            <div className="text-xs text-gray-500 break-all flex items-center gap-1 font-mono">
               {walletAddress}
               <IconButton
                 aria-label="复制钱包地址"

@@ -11,6 +11,7 @@ export interface SelectOption {
 export interface SelectProps {
   label?: React.ReactNode
   labelClassName?: string
+  valueClassName?: string
   wrapperClassName?: string
   className?: string
   placeholder?: string
@@ -30,6 +31,7 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>(
       className,
       label,
       labelClassName,
+      valueClassName,
       wrapperClassName,
       placeholder = '请选择或输入',
       value = '',
@@ -181,7 +183,10 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>(
                 onFocus={handleInputFocus}
                 onKeyDown={handleInputKeyDown}
                 disabled={disabled}
-                className="flex-1 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none"
+                className={cn(
+                  'flex-1 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none',
+                  valueClassName
+                )}
               />
             )}
 
@@ -223,7 +228,9 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>(
                 >
                   <div className="font-medium">{option.label}</div>
                   {option.value !== option.label && (
-                    <div className="text-xs text-gray-500 mt-1">{option.value}</div>
+                    <div className={cn('text-xs text-gray-500 mt-1', valueClassName)}>
+                      {option.value}
+                    </div>
                   )}
                 </button>
               ))}
@@ -243,7 +250,7 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>(
           {...props}
         >
           {selectedTag ? (
-            <div className="flex items-center px-3 py-2 flex-1">
+            <div className={cn('flex items-center px-3 py-2 flex-1', valueClassName)}>
               <span className="inline-flex items-center px-2 py-1 rounded-md bg-blue-100 text-blue-800 text-sm font-medium">
                 {selectedTag.label}
                 <CloseButton
@@ -265,7 +272,10 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>(
               onFocus={handleInputFocus}
               onKeyDown={handleInputKeyDown}
               disabled={disabled}
-              className="flex-1 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none"
+              className={cn(
+                'flex-1 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none',
+                valueClassName
+              )}
             />
           )}
 
@@ -307,7 +317,9 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>(
               >
                 <div className="font-medium">{option.label}</div>
                 {option.value !== option.label && (
-                  <div className="text-xs text-gray-500 mt-1">{option.value}</div>
+                  <div className={cn('text-xs text-gray-500 mt-1', valueClassName)}>
+                    {option.value}
+                  </div>
                 )}
               </button>
             ))}

@@ -147,7 +147,7 @@ const MainLayout = (): React.JSX.Element => {
               <span className="w-full truncate">{w.walletName}</span>
               <span className="w-full flex items-center text-xs text-gray-500 gap-1">
                 <BadgeDollarSign size={14} />
-                <span className="flex-1 truncate">{formatRaw(w.balance)}</span>
+                <span className="flex-1 truncate font-mono">{formatRaw(w.balance)}</span>
               </span>
             </div>
           ),

@@ -70,7 +70,11 @@ export const getPlans = async (payload: GetPlansRequest): Promise<GetPlansRespon
             planId: `plan-${index + 1}`,
             planName: `套利策略 ${index + 1}`,
             isActive: false,
-            followWallets: ['0x1234567890abcdef', '0xabcdef1234567890'],
+            followWallets: [
+              '5J2k9d3t4NW4Q5HyNAm1X5LbR8PQRVDc1W8NMVK88D5w',
+              'C9D8F7E6B5A4C3B2A1E0F9D8C7B6A5E4D3C2B1A0F9E8',
+              'A1B2C3D4E5F6G7H8I9J0K1L2M3N4O5P6Q7R8S9T0U1V2'
+            ],
             buyAmount: 500,
             buyJito: 0.2,
             sellJito: 0.1,

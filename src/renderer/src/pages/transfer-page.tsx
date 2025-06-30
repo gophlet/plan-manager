@@ -139,6 +139,7 @@ const TransferPage: React.FC = () => {
             label="转出地址"
             placeholder="请选择或输入转出地址"
             value={fromAddress}
+            valueClassName="font-mono"
             onChange={setFromAddress}
             options={walletOptions}
             disabled={loading}
@@ -147,7 +148,9 @@ const TransferPage: React.FC = () => {
                 <div className="flex items-center gap-2 hover:bg-gray-200 active:bg-gray-300 p-1 rounded">
                   <div className="flex items-center gap-1">
                     <BadgeDollarSign className="text-gray-600" size={16} />
-                    <span className="text-sm text-gray-600">{selectedWalletInfo.balance}</span>
+                    <span className="text-sm text-gray-600 font-mono">
+                      {selectedWalletInfo.balance}
+                    </span>
                   </div>
                   <RefreshCw
                     size={16}
@@ -162,6 +165,7 @@ const TransferPage: React.FC = () => {
             label="转入地址"
             placeholder="请选择或输入转入地址"
             value={toAddress}
+            valueClassName="font-mono"
             onChange={setToAddress}
             options={walletOptions}
             disabled={loading}

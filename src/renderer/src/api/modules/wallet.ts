@@ -32,19 +32,19 @@ export const getWallets = async (): Promise<GetWalletsResponse | null> => {
           wallets: [
             {
               walletId: 'wallet-1',
-              walletAddress: '0x1234567890abcdef',
+              walletAddress: '8MaVa9kdt3NW4Q5HyNAm1X5LbR8PQRVDc1W8NMVK88D5',
               walletName: '主钱包',
               balance: '1000'
             },
             {
               walletId: 'wallet-2',
-              walletAddress: '0xabcdef1234567890',
+              walletAddress: '43F2D1C0B9A8E7F6D5C4B3A2B1A0E9D8C7B6A5F4E3D2',
               walletName: '副钱包A',
               balance: '500'
             },
             {
               walletId: 'wallet-3',
-              walletAddress: '0x9876543210fedcba',
+              walletAddress: '9B8A7C6D5E4F3G2H1I0J9K8L7M6N5O4P3Q2R1S0T9U8V',
               walletName: '副钱包B',
               balance: '750'
             }

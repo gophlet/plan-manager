@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Outlet, useNavigate, useParams } from 'react-router'
 import { useToast } from '@renderer/components/kit/toast/toast-context'
-import { /*Settings, */ Wallet, RefreshCw, LogOut } from 'lucide-react'
+import { /*Settings, */ Wallet, RefreshCw, LogOut, BadgeDollarSign } from 'lucide-react'
 import { IconButton } from '../components/kit/icon-button'
 import { Skeleton } from '../components/kit/skeleton'
 import Sidebar from '../components/sidebar'
@@ -11,9 +11,10 @@ import { DEFAULT_ERROR_DESCRIPTION, RouteName } from '@renderer/constants'
 // import { FormPopup } from '../components/kit/form-popup'
 // import { Input } from '../components/kit/input'
 import { Dialog } from '../components/kit/dialog'
-import { cn } from '@renderer/lib/utils'
+import { cn, formatRaw } from '@renderer/lib/utils'
 import { Alert } from '../components/kit/alert'
 import { useAuthStore } from '@renderer/store/auth'
+import { WalletInfoList } from '@renderer/api/modules/wallet'
 
 const MainLayout = (): React.JSX.Element => {
   const { notify } = useToast()
@@ -22,13 +23,7 @@ const MainLayout = (): React.JSX.Element => {
   const params = useParams<{ walletId?: string }>()
   const [activeKey, setActiveKey] = React.useState('')
   const [loadingWallets, setLoadingWallets] = React.useState(false)
-  const [wallets, setWallets] = React.useState<
-    {
-      walletId: string
-      walletAddress: string
-      walletName: string
-    }[]
-  >([])
+  const [wallets, setWallets] = React.useState<WalletInfoList>([])
 
   const [dialog, setDialog] = React.useState<{
     open: boolean
@@ -133,7 +128,15 @@ const MainLayout = (): React.JSX.Element => {
         items: wallets.map((w) => ({
           key: w.walletId,
           icon: <Wallet />,
-          label: w.walletName,
+          label: (
+            <div className="flex flex-col gap-1 items-start">
+              <span className="w-full truncate">{w.walletName}</span>
+              <span className="w-full flex items-center text-xs text-gray-500 gap-1">
+                <BadgeDollarSign size={14} />
+                <span className="flex-1 truncate">{formatRaw(w.balance)}</span>
+              </span>
+            </div>
+          ),
           route: `${RouteName.WALLET}/${w.walletId}`,
           walletId: w.walletId,
           walletAddress: w.walletAddress

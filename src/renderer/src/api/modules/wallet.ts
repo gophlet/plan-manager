@@ -8,9 +8,10 @@ type WalletInfo = {
   walletId: string
   walletAddress: string
   walletName: string
+  balance: number
 }
 
-type WalletInfoList = WalletInfo[]
+export type WalletInfoList = WalletInfo[]
 
 export interface GetWalletsResponse {
   wallets: WalletInfoList
@@ -32,17 +33,20 @@ export const getWallets = async (): Promise<GetWalletsResponse | null> => {
             {
               walletId: 'wallet-1',
               walletAddress: '0x1234567890abcdef',
-              walletName: '主钱包'
+              walletName: '主钱包',
+              balance: 1000
             },
             {
               walletId: 'wallet-2',
               walletAddress: '0xabcdef1234567890',
-              walletName: '副钱包A'
+              walletName: '副钱包A',
+              balance: 500
             },
             {
               walletId: 'wallet-3',
               walletAddress: '0x9876543210fedcba',
-              walletName: '副钱包B'
+              walletName: '副钱包B',
+              balance: 750
             }
           ]
         })

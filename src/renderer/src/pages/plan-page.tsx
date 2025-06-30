@@ -355,7 +355,7 @@ const PlanPage: React.FC<{
 
   return (
     <main className="flex-1 p-8 flex flex-col items-center bg-gray-50">
-      <div className="h-full w-full max-w-4xl gap-6 flex flex-col">
+      <div className="flex flex-col gap-6 h-fit max-h-full w-full max-w-4xl">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
             <div className="text-lg font-bold text-gray-900 flex items-center gap-1">
@@ -401,7 +401,7 @@ const PlanPage: React.FC<{
             <Button onClick={() => setShowCreate(true)}>创建计划</Button>
           </div>
         </div>
-        <div className="bg-white rounded-xl shadow-md border border-gray-200 p-0 overflow-x-auto overflow-y-scroll">
+        <div className="flex-1 bg-white rounded-xl shadow-md border border-gray-200 p-0 overflow-auto">
           {loading ? (
             <div className="p-8 text-center text-gray-400">加载中...</div>
           ) : plans.length === 0 ? (
@@ -411,7 +411,7 @@ const PlanPage: React.FC<{
               columns={tableColumns}
               data={plans}
               rowKey={(row) => row.planId}
-              className="w-full text-sm"
+              className="flex flex-col h-fit max-h-full text-sm"
             />
           )}
         </div>

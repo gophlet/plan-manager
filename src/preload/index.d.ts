@@ -11,5 +11,8 @@ declare global {
     httpClient: {
       request: <T = unknown>(config: HttpRequestConfig) => Promise<HttpResponse<T>>
     }
+    platform: {
+      isWindows: () => Promise<boolean>
+    }
   }
 }

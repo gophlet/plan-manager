@@ -6,7 +6,8 @@ import { Conf } from 'electron-conf/main'
 import icon from '../../resources/icon.png?asset'
 import { handleHttpRequest } from './http-request'
 import { HttpRequestConfig, HttpResponse } from '../shared/http-types'
-import { HTTP_CHANNEL } from '../shared/ipc-channels'
+import { HTTP_CHANNEL, PLATFORM_CHANNEL } from '../shared/ipc-channels'
+import { isWindows } from '../shared/utils'
 
 function createWindow(): void {
   // Create the browser window.
@@ -67,6 +68,7 @@ app.whenReady().then(() => {
     HTTP_CHANNEL.REQUEST,
     <T>(_event, config: HttpRequestConfig): Promise<HttpResponse<T>> => handleHttpRequest(config)
   )
+  ipcMain.handle(PLATFORM_CHANNEL.IS_WINDOWS, isWindows)
 
   createWindow()
 

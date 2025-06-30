@@ -39,7 +39,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ groups, header, onSelect, chil
   return (
     <aside className="w-56 bg-white border-r border-gray-300 h-full flex flex-col pt-6 gap-6">
       {header}
-      <nav className="flex-1 flex flex-col gap-4 px-4 pb-6 overflow-scroll">
+      <nav className="flex-1 flex flex-col gap-4 px-4 pb-6 overflow-auto">
         {groups?.map((group, idx) => (
           <div key={group.title || idx} className="flex flex-col gap-2">
             {group.title && (

@@ -5,3 +5,7 @@ export const isFunction = (value: unknown): value is (...args: unknown[]) => unk
 
 export const getEnvBoolean = (value: string): boolean =>
   isString(value) && value.toLowerCase() === 'true'
+
+export const isWindows = (): boolean => {
+  return process.platform === 'win32'
+}

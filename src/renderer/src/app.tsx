@@ -3,21 +3,36 @@ import { router } from './router'
 import { ToastProvider } from './components/kit/toast/toast-provider'
 import { useCallback, useEffect } from 'react'
 import { useAuthStore } from './store/auth'
+import { Platform, PLATFORM_ATTRIBUTE_NAME } from './constants'
 
 const App = (): React.JSX.Element => {
-  const init = useAuthStore((state) => state.init)
+  const readToken = useAuthStore((state) => state.init)
 
-  const initializeAuth = useCallback(async () => {
+  const initAuth = useCallback(async () => {
     try {
-      await init()
+      await readToken()
     } catch (error) {
       console.error(error)
     }
-  }, [init])
+  }, [readToken])
 
   useEffect(() => {
-    initializeAuth()
-  }, [initializeAuth])
+    initAuth()
+  }, [initAuth])
+
+  const initPlatformAttribute = useCallback(async () => {
+    try {
+      if (await window.platform.isWindows()) {
+        document.documentElement.setAttribute(PLATFORM_ATTRIBUTE_NAME, Platform.WINDOWS)
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }, [])
+
+  useEffect(() => {
+    initPlatformAttribute()
+  }, [initPlatformAttribute])
 
   return (
     <ToastProvider>

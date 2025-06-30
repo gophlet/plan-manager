@@ -14,7 +14,6 @@ export interface FixedHeaderTableProps<T> {
   data: T[]
   rowKey: (row: T, rowIndex: number) => React.Key
   className?: string
-  style?: React.CSSProperties
   renderRow?: (row: T, rowIndex: number, cells: React.ReactNode[]) => React.ReactNode
   onSync?: () => void
 }
@@ -24,7 +23,7 @@ export interface FixedHeaderTableRef {
 }
 
 function FixedHeaderTableInner<T extends Record<string, unknown>>(
-  { columns, data, rowKey, className, style, renderRow, onSync }: FixedHeaderTableProps<T>,
+  { columns, data, rowKey, className, renderRow, onSync }: FixedHeaderTableProps<T>,
   ref: React.ForwardedRef<FixedHeaderTableRef>
 ): React.ReactElement {
   const theadRef = useRef<HTMLTableSectionElement>(null)
@@ -94,8 +93,8 @@ function FixedHeaderTableInner<T extends Record<string, unknown>>(
   }, [])
 
   return (
-    <div className={cn('w-full relative', className)} style={style}>
-      <div className="overflow-hidden shadow-sm">
+    <div className={cn('w-full relative', className)}>
+      <div className="w-full shadow-sm">
         <table className="w-full table-auto border-b border-gray-200 bg-gray-50">
           <thead ref={theadRef}>
             <tr className="p-3 font-medium text-gray-700 whitespace-nowrap text-left">
@@ -109,7 +108,7 @@ function FixedHeaderTableInner<T extends Record<string, unknown>>(
         </table>
       </div>
 
-      <div ref={scrollBodyRef} className="overflow-y-auto overflow-x-auto max-h-[420px] w-full">
+      <div ref={scrollBodyRef} className="flex-1 w-full overflow-auto">
         <table className="w-full table-auto">
           <tbody ref={tbodyRef}>
             {data.map((row, rowIndex) => {

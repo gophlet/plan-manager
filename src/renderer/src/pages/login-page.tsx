@@ -10,6 +10,9 @@ import { Input } from '../components/kit/input'
 import { Button } from '../components/kit/button'
 import { Alert } from '../components/kit/alert'
 import { Spinner } from '../components/kit/spinner'
+import EmojiBackground from '../components/emoji-background'
+
+const loginEmojis = ['🔒', '🔑', '🔐', '🗝️', '🔓']
 
 const LoginPage = (): React.JSX.Element => {
   // throw new Error('Test error boundary')
@@ -51,8 +54,9 @@ const LoginPage = (): React.JSX.Element => {
   }
 
   return (
-    <main className="w-full max-w-md flex flex-col items-center px-4">
-      <Card className="w-full py-12 px-8">
+    <main className="w-full h-full flex flex-col justify-center items-center px-4 relative overflow-hidden">
+      <EmojiBackground emojis={loginEmojis} />
+      <Card className="w-full max-w-md  py-12 px-8 z-1">
         <div className="flex flex-col items-center gap-8">
           <div className="flex flex-col items-center gap-3 mb-2">
             <AppIcon size={64} className="shadow-lg rounded-2xl" />

@@ -10,6 +10,9 @@ import { Spinner } from '../components/kit/spinner'
 import { DEFAULT_ERROR_DESCRIPTION } from '@renderer/constants'
 import { WalletInfoList } from '@renderer/api/modules/wallet'
 import { cn } from '@renderer/lib/utils'
+import EmojiBackground from '../components/emoji-background'
+
+const transferEmojis = ['🪙', '💰', '💵', '💴', '💶', '💷', '💎', '🤑', '💲']
 
 const TransferPage: React.FC = () => {
   const { notify } = useToast()
@@ -127,8 +130,9 @@ const TransferPage: React.FC = () => {
   }
 
   return (
-    <main className="flex-1 flex flex-col items-center justify-center p-8">
-      <Card className="w-full max-w-md p-8 flex flex-col gap-6 items-center">
+    <main className="flex-1 flex flex-col items-center justify-center p-8 relative overflow-hidden">
+      <EmojiBackground emojis={transferEmojis} />
+      <Card className="w-full max-w-md p-8 flex flex-col gap-6 items-center z-1">
         <div className="text-2xl font-bold text-gray-900">转账</div>
         <form className="w-full flex flex-col gap-4" onSubmit={handleSubmit}>
           <Select

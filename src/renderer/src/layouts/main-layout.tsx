@@ -1,7 +1,13 @@
 import * as React from 'react'
-import { Outlet, useNavigate, useParams } from 'react-router'
+import { Outlet, useNavigate, useParams, useLocation } from 'react-router'
 import { useToast } from '@renderer/components/kit/toast/toast-context'
-import { /*Settings, */ Wallet, RefreshCw, LogOut, BadgeDollarSign } from 'lucide-react'
+import {
+  /*Settings, */ Wallet,
+  RefreshCw,
+  LogOut,
+  BadgeDollarSign,
+  ArrowRightLeft
+} from 'lucide-react'
 import { IconButton } from '../components/kit/icon-button'
 import { Skeleton } from '../components/kit/skeleton'
 import Sidebar from '../components/sidebar'
@@ -21,6 +27,7 @@ const MainLayout = (): React.JSX.Element => {
   const navigate = useNavigate()
   const clearToken = useAuthStore((state) => state.clearToken)
   const params = useParams<{ walletId?: string }>()
+  const location = useLocation()
   const [activeKey, setActiveKey] = React.useState('')
   const [loadingWallets, setLoadingWallets] = React.useState(false)
   const [wallets, setWallets] = React.useState<WalletInfoList>([])
@@ -65,12 +72,14 @@ const MainLayout = (): React.JSX.Element => {
   }, [fetchWallets])
 
   React.useEffect(() => {
-    if (selectedWallet) {
+    if (location.pathname === RouteName.TRANSFER) {
+      setActiveKey('transfer')
+    } else if (selectedWallet) {
       setActiveKey(selectedWallet.walletId)
     } else {
       setActiveKey('')
     }
-  }, [selectedWallet])
+  }, [location.pathname, selectedWallet])
 
   const handleSidebarSelect = (key: string): void => {
     const wallet = wallets.find((w) => w.walletId === key)
@@ -94,6 +103,11 @@ const MainLayout = (): React.JSX.Element => {
           notify({ title: '已注销', description: '您已成功退出登录', variant: 'success' })
         }
       })
+    }
+    if (key === 'transfer') {
+      navigate(RouteName.TRANSFER)
+      setActiveKey(key)
+      return
     }
   }
 
@@ -170,6 +184,17 @@ const MainLayout = (): React.JSX.Element => {
           //   }
           // ]
         }))
+      },
+      {
+        title: '资金管理',
+        items: [
+          {
+            key: 'transfer',
+            icon: <ArrowRightLeft />,
+            label: '转账',
+            route: RouteName.TRANSFER
+          }
+        ]
       },
       {
         title: '系统',

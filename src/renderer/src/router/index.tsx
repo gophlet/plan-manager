@@ -9,6 +9,7 @@ import LoginPage from '@renderer/pages/login-page'
 import HomePage from '@renderer/pages/home-page'
 import PlanPageWrapper from '@renderer/pages/plan-page-wrapper'
 import ErrorLayout from '@renderer/layouts/error-layout'
+import TransferPage from '@renderer/pages/transfer-page'
 
 const routes = createRoutesFromElements(
   <Route
@@ -24,6 +25,7 @@ const routes = createRoutesFromElements(
         <Route index element={<Navigate to={RouteName.DASHBOARD} replace />} />
         <Route path={RouteName.DASHBOARD} element={<HomePage />} />
         <Route path={`${RouteName.WALLET}/:walletId`} element={<PlanPageWrapper />} />
+        <Route path={RouteName.TRANSFER} element={<TransferPage />} />
       </Route>
     </Route>
     <Route element={<Public />}>

@@ -15,7 +15,8 @@ export const Platform = {
 export const RouteName = {
   DASHBOARD: '/dashboard',
   WALLET: '/wallet',
-  LOGIN: '/login'
+  LOGIN: '/login',
+  TRANSFER: '/transfer'
 } as const
 
 export const HttpMethod = {

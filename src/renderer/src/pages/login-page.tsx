@@ -78,13 +78,16 @@ const LoginPage = (): React.JSX.Element => {
               autoComplete="current-password"
             />
             <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? (
-                <>
-                  <Spinner size={20} className="mr-2" /> 登录中...
-                </>
-              ) : (
-                '登录'
-              )}
+              <div className="flex items-center justify-center gap-2">
+                {loading ? (
+                  <>
+                    <Spinner size={20} />
+                    <span>登录中...</span>
+                  </>
+                ) : (
+                  '登录'
+                )}
+              </div>
             </Button>
           </form>
         </div>

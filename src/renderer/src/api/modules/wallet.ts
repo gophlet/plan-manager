@@ -8,7 +8,7 @@ type WalletInfo = {
   walletId: string
   walletAddress: string
   walletName: string
-  balance: number
+  balance: string
 }
 
 export type WalletInfoList = WalletInfo[]
@@ -19,7 +19,7 @@ export interface GetWalletsResponse {
 
 export const getWallets = async (): Promise<GetWalletsResponse | null> => {
   if (isMockEnabled) {
-    if (randomByPercent(5)) {
+    if (randomByPercent(1)) {
       const res = await client.request<GetWalletsResponse>({
         method: HttpMethod.GET,
         url: MockEndpoint.UNAUTHORIZED
@@ -34,19 +34,19 @@ export const getWallets = async (): Promise<GetWalletsResponse | null> => {
               walletId: 'wallet-1',
               walletAddress: '0x1234567890abcdef',
               walletName: '主钱包',
-              balance: 1000
+              balance: '1000'
             },
             {
               walletId: 'wallet-2',
               walletAddress: '0xabcdef1234567890',
               walletName: '副钱包A',
-              balance: 500
+              balance: '500'
             },
             {
               walletId: 'wallet-3',
               walletAddress: '0x9876543210fedcba',
               walletName: '副钱包B',
-              balance: 750
+              balance: '750'
             }
           ]
         })

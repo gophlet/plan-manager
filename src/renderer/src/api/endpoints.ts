@@ -12,3 +12,7 @@ export const PlanEndpoint = {
   SUBMIT_PLAN: '/submitPlan',
   SWITCH_PLANS: '/switchPlans'
 } as const
+
+export const TransferEndpoint = {
+  TRANSFER: '/transfer'
+} as const

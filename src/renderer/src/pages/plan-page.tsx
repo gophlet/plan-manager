@@ -191,6 +191,7 @@ const PlanPage: React.FC<{
     }
   }
 
+  const followWalletsLengthColClass = 'hidden [@media(min-width:1024px)]:table-cell'
   const buyAmountColClass = 'hidden [@media(min-width:680px)]:table-cell'
   const upDownColClass = 'hidden [@media(min-width:800px)]:table-cell'
   const detailColClass = 'hidden [@media(min-width:968px)]:table-cell'
@@ -223,6 +224,12 @@ const PlanPage: React.FC<{
       title: '计划名称',
       className: 'w-auto min-w-[120px] max-w-[320px] truncate text-left',
       render: (row) => row.planName
+    },
+    {
+      key: 'followWalletsLength',
+      title: '跟随钱包数量',
+      className: cn('text-center', followWalletsLengthColClass),
+      render: (row) => row.followWallets.length
     },
     {
       key: 'buyAmount',

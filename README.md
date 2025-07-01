@@ -8,11 +8,18 @@ A Plan Manager
 
 ## Project Setup
 
-### Install
+### Dependency Installation
 
 ```bash
 $ npm install
 ```
+
+### Environment Configuration
+
+This project supports configuration via environment variables, with separate settings for development and production environments. Please create the appropriate `.env` file in the project root as needed.
+
+- Development: `.env.development`
+- Production: `.env.production`
 
 ### Development
 
@@ -23,7 +30,7 @@ $ npm run dev
 ### Build
 
 ```bash
-# For windows
+# For Windows
 $ npm run build:win
 
 # For macOS

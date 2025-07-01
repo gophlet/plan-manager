@@ -12,7 +12,7 @@ import { isWindows } from '../shared/utils'
 function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 1024,
+    width: 1080,
     height: 768,
     show: false,
     autoHideMenuBar: true,

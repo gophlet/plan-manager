@@ -55,10 +55,10 @@ export const PlanFormPopup: React.FC<PlanFormPopupProps> = ({
 
   return (
     <Popup open={open} onClose={() => onOpenChange(false)} className="max-w-4xl w-full">
-      <div className="h-fit max-h-[90vh] overflow-y-auto">
-        <form className="space-y-4" onSubmit={handleSubmit}>
-          <h3 className="text-lg font-bold mb-4">{title}</h3>
-          <div className="space-y-4">
+      <div className="flex h-fit max-h-[90vh]">
+        <form className="flex-1 flex flex-col gap-4" onSubmit={handleSubmit}>
+          <h3 className="text-lg font-bold">{title}</h3>
+          <div className="flex-1 space-y-4 overflow-y-auto">
             <Section className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Input
                 label="计划名称"
@@ -134,7 +134,7 @@ export const PlanFormPopup: React.FC<PlanFormPopupProps> = ({
               />
             </Section>
           </div>
-          <div className="flex justify-end gap-2 pt-2">
+          <div className="flex justify-end gap-2">
             <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
               取消
             </Button>

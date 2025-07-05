@@ -198,7 +198,7 @@ const SwapPage: React.FC = () => {
 
           <Input
             label={type === Transaction.BUY ? '买入数量' : '卖出百分比 (%)'}
-            placeholder={type === Transaction.BUY ? '请输入买入数量' : '请输入卖出百分比 (0-100)'}
+            placeholder={type === Transaction.BUY ? '请输入买入数量' : '请输入卖出百分比 (0 ~ 100)'}
             type="number"
             value={amountOrPercent}
             onChange={(e) => setAmountOrPercent(e.target.value)}

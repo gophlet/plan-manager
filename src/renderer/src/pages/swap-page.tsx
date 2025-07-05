@@ -11,10 +11,8 @@ import { Switch } from '../components/kit/switch'
 import { DEFAULT_ERROR_DESCRIPTION, Transaction } from '@renderer/constants'
 import { WalletInfoList } from '@renderer/api/modules/wallet'
 import { cn } from '@renderer/lib/utils'
-import EmojiBackground from '../components/emoji-background'
+import Web3IconBackground from '../components/web3-icon-background'
 import { TransactionType } from '@renderer/api/modules/swap'
-
-const swapEmojis = ['🔄', '💱', '🔀', '🪙', '⚖️', '🏦']
 
 const SwapPage: React.FC = () => {
   const { notify } = useToast()
@@ -133,7 +131,7 @@ const SwapPage: React.FC = () => {
 
   return (
     <main className="flex-1 flex flex-col items-center justify-center p-8 relative overflow-hidden">
-      <EmojiBackground emojis={swapEmojis} />
+      <Web3IconBackground />
       <Card className="w-full max-w-md p-8 flex flex-col gap-6 items-center z-1">
         <div className="text-2xl font-bold text-gray-900">兑换</div>
         <form className="w-full flex flex-col gap-4" onSubmit={handleSubmit}>

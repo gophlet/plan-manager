@@ -16,7 +16,8 @@ export const RouteName = {
   DASHBOARD: '/dashboard',
   WALLET: '/wallet',
   LOGIN: '/login',
-  TRANSFER: '/transfer'
+  TRANSFER: '/transfer',
+  SWAP: '/swap'
 } as const
 
 export const HttpMethod = {
@@ -36,4 +37,9 @@ export const HttpStatus = {
   FORBIDDEN: 403,
   NOT_FOUND: 404,
   INTERNAL_SERVER_ERROR: 500
+} as const
+
+export const Transaction = {
+  BUY: 'buy',
+  SELL: 'sell'
 } as const

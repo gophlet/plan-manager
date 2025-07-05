@@ -6,7 +6,8 @@ import {
   RefreshCw,
   LogOut,
   BadgeDollarSign,
-  ArrowRightLeft
+  ArrowRightLeft,
+  Coins
 } from 'lucide-react'
 import { IconButton } from '../components/kit/icon-button'
 import { Skeleton } from '../components/kit/skeleton'
@@ -74,6 +75,8 @@ const MainLayout = (): React.JSX.Element => {
   React.useEffect(() => {
     if (location.pathname === RouteName.TRANSFER) {
       setActiveKey('transfer')
+    } else if (location.pathname === RouteName.SWAP) {
+      setActiveKey('swap')
     } else if (selectedWallet) {
       setActiveKey(selectedWallet.walletId)
     } else {
@@ -106,6 +109,11 @@ const MainLayout = (): React.JSX.Element => {
     }
     if (key === 'transfer') {
       navigate(RouteName.TRANSFER)
+      setActiveKey(key)
+      return
+    }
+    if (key === 'swap') {
+      navigate(RouteName.SWAP)
       setActiveKey(key)
       return
     }
@@ -193,6 +201,12 @@ const MainLayout = (): React.JSX.Element => {
             icon: <ArrowRightLeft />,
             label: '转账',
             route: RouteName.TRANSFER
+          },
+          {
+            key: 'swap',
+            icon: <Coins />,
+            label: '兑换',
+            route: RouteName.SWAP
           }
         ]
       },

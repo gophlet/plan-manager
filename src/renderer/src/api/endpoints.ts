@@ -16,3 +16,7 @@ export const PlanEndpoint = {
 export const TransferEndpoint = {
   TRANSFER: '/transfer'
 } as const
+
+export const SwapEndpoint = {
+  SWAP: '/swap'
+} as const

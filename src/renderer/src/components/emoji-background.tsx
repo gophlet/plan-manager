@@ -1,7 +1,9 @@
+import { cn } from '@renderer/lib/utils'
 import React from 'react'
 
 export interface EmojiBackgroundProps {
   emojis: string[]
+  className?: string
   count?: number
 }
 
@@ -11,7 +13,11 @@ function randomBetween(min: number, max: number): number {
 
 const DEFAULT_COUNT = 18
 
-const EmojiBackground: React.FC<EmojiBackgroundProps> = ({ emojis, count = DEFAULT_COUNT }) => {
+const EmojiBackground: React.FC<EmojiBackgroundProps> = ({
+  emojis,
+  count = DEFAULT_COUNT,
+  className
+}) => {
   const emojiList = React.useMemo(() => {
     return Array.from({ length: count }).map((_, i) => {
       const left = (i + 0.5) * (100 / count) + randomBetween(-2, 2)
@@ -26,7 +32,10 @@ const EmojiBackground: React.FC<EmojiBackgroundProps> = ({ emojis, count = DEFAU
 
   return (
     <div
-      className="pointer-events-none absolute inset-0 w-full h-full z-0 overflow-hidden"
+      className={cn(
+        'pointer-events-none absolute inset-0 w-full h-full z-0 overflow-hidden',
+        className
+      )}
       aria-hidden="true"
     >
       {emojiList.map((item, idx) => (

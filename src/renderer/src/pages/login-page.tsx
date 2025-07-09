@@ -7,10 +7,12 @@ import Card from '../components/kit/card'
 import AppIcon from '../components/kit/app-icon'
 import { useToast } from '../components/kit/toast/toast-context'
 import { Input } from '../components/kit/input'
+import { PasswordInput } from '../components/kit/password-input'
 import { Button } from '../components/kit/button'
 import { Alert } from '../components/kit/alert'
 import { Spinner } from '../components/kit/spinner'
 import EmojiBackground from '../components/emoji-background'
+import { cn } from '@renderer/lib/utils'
 
 const loginEmojis = ['🔒', '🔑', '🔐', '🗝️', '🔓']
 
@@ -22,6 +24,7 @@ const LoginPage = (): React.JSX.Element => {
   const [password, setPassword] = React.useState('')
   const [loading, setLoading] = React.useState(false)
   const [error, setError] = React.useState('')
+  const [passwordFocused, setPasswordFocused] = React.useState(false)
   const navigate = useNavigate()
   const token = useAuthStore((state) => state.token)
 
@@ -55,7 +58,10 @@ const LoginPage = (): React.JSX.Element => {
 
   return (
     <main className="w-full h-full flex flex-col justify-center items-center px-4 relative overflow-hidden">
-      <EmojiBackground emojis={loginEmojis} />
+      <EmojiBackground
+        emojis={loginEmojis}
+        className={cn('transition-all duration-300', passwordFocused && 'blur-sm')}
+      />
       <Card className="w-full max-w-md  py-12 px-8 z-1">
         <div className="flex flex-col items-center gap-8">
           <div className="flex flex-col items-center gap-3 mb-2">
@@ -73,13 +79,14 @@ const LoginPage = (): React.JSX.Element => {
               disabled={loading}
               autoComplete="username"
             />
-            <Input
-              type="password"
+            <PasswordInput
               placeholder="密码"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               disabled={loading}
               autoComplete="current-password"
+              onFocus={() => setPasswordFocused(true)}
+              onBlur={() => setPasswordFocused(false)}
             />
             <Button type="submit" className="w-full" disabled={loading}>
               <div className="flex items-center justify-center gap-2">

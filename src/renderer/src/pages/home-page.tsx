@@ -8,7 +8,7 @@ const HomePage = (): React.JSX.Element => {
 
   return (
     <main className="flex-1 flex flex-col items-center justify-center p-8 relative overflow-hidden">
-      <EmojiBackground emojis={homeEmojis} count={14} />
+      <EmojiBackground emojis={homeEmojis} />
       <div className="bg-white rounded-xl shadow-md border border-gray-200 p-10 max-w-lg w-full flex flex-col items-center gap-6 z-10">
         <div className="text-5xl mb-2">👋</div>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">欢迎使用 Plan Manager</h1>

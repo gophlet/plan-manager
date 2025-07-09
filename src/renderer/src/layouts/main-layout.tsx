@@ -138,9 +138,9 @@ const MainLayout = (): React.JSX.Element => {
         ),
         skeleton: loadingWallets ? (
           <div className="flex flex-col gap-2">
-            <Skeleton height={48} radius={6} className="px-3" />
-            <Skeleton height={48} radius={6} className="px-3" />
-            <Skeleton height={48} radius={6} className="px-3" />
+            <Skeleton height={60} radius={6} className="px-3" />
+            <Skeleton height={60} radius={6} className="px-3" />
+            <Skeleton height={60} radius={6} className="px-3" />
           </div>
         ) : wallets.length === 0 ? (
           <Alert variant="warning" className="text-left">
